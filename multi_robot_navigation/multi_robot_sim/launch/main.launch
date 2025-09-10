@@ -1,0 +1,37 @@
+<!-- use 'roslaunch multi_robot_sim main.launch' to start simulation -->
+<launch>
+  <param name="/use_sim_time" value="true" />
+
+  <!-- start world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find multi_robot_sim)/worlds/corridor.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_box_1" 
+        args="-model box_1 -sdf -x 7.0 -y 1.0 -z 0.0 -file /home/jxt/model_editor_models/unit_box/model.sdf" 
+        output="screen"/>
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_box_2" 
+        args="-model box_2 -sdf -x 7.0 -y -1.0 -z 0.0 -file /home/jxt/model_editor_models/unit_box/model.sdf" 
+        output="screen"/>
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_box_3" 
+        args="-model box_3 -sdf -x 14.0 -y 0.0 -z 0.0 -file /home/jxt/model_editor_models/unit_box/model.sdf" 
+        output="screen"/>
+
+  <!-- include your robots -->
+  <include file="$(find multi_robot_sim)/launch/robots.launch"/>
+
+  <!-- start amcl -->
+  <include file="$(find multi_robot_amcl)/launch/navigation.launch"/>
+
+  <!-- start d3qn navigation -->
+  <include file="$(find d3qn_navigation)/launch/d3qn_navigation_main.launch"/>
+
+  <!-- start leader_follow control -->
+  <include file="$(find leader_follow)/launch/leader_follow_main.launch"/>
+
+</launch>

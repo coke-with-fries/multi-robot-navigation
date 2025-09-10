@@ -1,0 +1,13 @@
+<!-- use "roslaunch leader_follow leader_follow_main.launch" to start -->
+<launch>
+    <node pkg="leader_follow" type="robot_poses_publisher.py" name="robot_poses_publisher" output="screen"/>
+    <node pkg="leader_follow" type="leader_follow_main.py" name="leader_follow_main" output="screen"/>
+    <node pkg="plotter" type="leader_follow_error_plotter.py" name="robot2_leader_follow_error_plotter" output="screen">
+            <param name="e_d_topic" value="/robot2/e_d" />
+        <param name="e_theta_topic" value="/robot2/e_theta" />
+    </node>
+    <node pkg="plotter" type="leader_follow_error_plotter.py" name="robot3_leader_follow_error_plotter" output="screen">
+        <param name="e_d_topic" value="/robot3/e_d" />
+    <param name="e_theta_topic" value="/robot3/e_theta" />
+    </node>
+</launch>

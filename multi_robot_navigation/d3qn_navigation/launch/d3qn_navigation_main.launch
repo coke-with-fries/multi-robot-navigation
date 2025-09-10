@@ -1,0 +1,4 @@
+<!-- use 'roslaunch d3qn_navigation d3qn_navigation_main.launch' to start -->
+<launch>
+    <node pkg="d3qn_navigation" type="d3qn_navigation_main.py" name="d3qn_navigation" output="screen"/>
+</launch>
